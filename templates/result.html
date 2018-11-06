@@ -1,0 +1,71 @@
+<html>
+<head>
+    <style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}</style>
+    <title>{{ title }}</title>
+</head>
+<body>
+<h1>Analysis Results</h1>
+
+
+<table>
+    <tr>
+        <th>Sentiment</th>
+        <th>Count</th>
+        <th>Percentage (%)</th>
+    </tr>
+
+    {% for row in summary %}
+    <tr>
+        <td>{{ row["sentiment"] }}</td>
+        <td>{{ "%.2f"|format(row["count"]|float) }}</td>
+        <td>{{ "%.2f"|format(row["percentage"]|float ) }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<h2>Most Positive Tweets</h2>
+<table>
+    <tr>
+        <th>Tweet</th>
+        <th>Polarity</th>
+    </tr>
+
+    {% for row in detail_positive %}
+    <tr>
+        <td>{{ row["text"] }}</td>
+        <td>{{ "%.2f"|format(row["polarity"]|float) }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<h2>Most Negative Tweets</h2>
+<table>
+    <tr>
+        <th>Tweet</th>
+        <th>Polarity</th>
+    </tr>
+
+    {% for row in detail_negative %}
+    <tr>
+        <td>{{ row["text"] }}</td>
+        <td>{{ "%.2f"|format(row["polarity"]|float) }}</td>
+    </tr>
+    {% endfor %}
+</table>
+</body>
+</html>

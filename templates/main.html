@@ -1,0 +1,16 @@
+<html>
+<head>
+    <title>{{ title }}</title>
+</head>
+<body>
+<h1>Twitter Sentiment Analysis</h1>
+<h2>Parameters</h2>
+<form method="GET" action="{{ url_for('result')}}">
+    <label>Search Query:   </label>
+    <input name="query" value="Trump"><br>
+    <input name="count" value="200"><br>
+    <input type="submit"><br>
+</form>
+
+</body>
+</html>
