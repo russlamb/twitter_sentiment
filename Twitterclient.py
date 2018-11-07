@@ -86,12 +86,15 @@ class TwitterClient(object):
             try:
                 new_tweets = self.api.search(q=query, count=count, max_id=str(last_id - 1))
                 if not new_tweets:
+                    print("no new tweets")
                     break
                 searched_tweets.extend(new_tweets)
                 last_id = new_tweets[-1].id
             except tweepy.TweepError as e:
+                
                 # depending on TweepError.code, one may want to retry or wait
                 # to keep things simple, we will give up on an error
+                print("error fetching tweets: {}".format(e))
                 break
         return searched_tweets
         
