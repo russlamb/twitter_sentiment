@@ -11,18 +11,18 @@ def main():
     api = TwitterClient()
     
     # calling function to get tweets
-    tweets = api.get_tweets(query='Donald Trump', count=200)
+    tweets = api.get_tweets(query='Donald Trump', count=10)
     print(tweets)
     # picking positive tweets from tweets
     ptweets = sorted([tweet for tweet in tweets if tweet['sentiment'] == 'positive'],key= lambda kv: kv['polarity'], reverse=True)
     # percentage of positive tweets
-    print("Positive tweets percentage: {} %".format(100 * len(ptweets) / len(tweets)))
+    print("Positive tweets percentage: {} %".format(100 * len(ptweets) / len(tweets) if len(tweets)>0 else 0))
     # picking negative tweets from tweets
     ntweets = sorted([tweet for tweet in tweets if tweet['sentiment'] == 'negative'],key= lambda kv: kv['polarity'])
     # percentage of negative tweets
-    print("Negative tweets percentage: {} %".format(100 * len(ntweets) / len(tweets)))
+    print("Negative tweets percentage: {} %".format(100 * len(ntweets) / len(tweets) if len(tweets)>0 else 0))
     # percentage of neutral tweets
-    print("Neutral tweets percentage: {} % ".format(100 * (len(tweets) - len(ntweets) - len(ptweets)) / len(tweets)))
+    print("Neutral tweets percentage: {} % ".format(100 * (len(tweets) - len(ntweets) - len(ptweets)) / len(tweets) if len(tweets)>0 else 0))
 
     
     # printing first 5 positive tweets
