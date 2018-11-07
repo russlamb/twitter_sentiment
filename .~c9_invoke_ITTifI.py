@@ -76,25 +76,7 @@ class TwitterClient(object):
         return analysis.sentiment.polarity
 
 
-    def tweepy_search(self, query, count):
-        searched_tweets = []
-        last_id = -1
-        
-        max_tweets = int( count )
-        while len(searched_tweets) < max_tweets:
-            count = max_tweets - len(searched_tweets)
-            try:
-                new_tweets = self.api.search(q=query, count=count, max_id=str(last_id - 1))
-                if not new_tweets:
-                    break
-                searched_tweets.extend(new_tweets)
-                last_id = new_tweets[-1].id
-            except tweepy.TweepError as e:
-                # depending on TweepError.code, one may want to retry or wait
-                # to keep things simple, we will give up on an error
-                break
-        return searched_tweets
-        
+    def t(self, query, count):
     def get_tweets(self, query, count=10):
         '''
         Main function to fetch tweets and parse them.
@@ -104,8 +86,7 @@ class TwitterClient(object):
 
         try:
             # call twitter api to fetch tweets
-            #fetched_tweets = self.api.search(q=query, count=count)
-            fetched_tweets = self.tweepy_search(query, count)
+            fetched_tweets = self.api.search(q=query, count=count)
 
             # parsing tweets one by one
             for tweet in fetched_tweets:

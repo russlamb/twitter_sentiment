@@ -36,17 +36,17 @@ def result():
         { 
             "sentiment": "positive", 
             "count": len(ptweets), 
-            "percentage": 100*len(ptweets) / len(tweets)
+            "percentage": 100*len(ptweets) / len(tweets) if len(tweets)>0 else 0
         },
         { 
             "sentiment": "negative", 
             "count": len(ntweets), 
-            "percentage": 100*len(ntweets) / len(tweets)
+            "percentage": 100*len(ntweets) / len(tweets) if len(tweets)>0 else 0
         },
         { 
             "sentiment": "neutral", 
             "count": len(tweets) - len(ntweets) - len(ptweets), 
-            "percentage": 100* (len(tweets) - len(ntweets) - len(ptweets)) / len(tweets)
+            "percentage": 100* (len(tweets) - len(ntweets) - len(ptweets)) / len(tweets) if len(tweets)>0 else 0
         }
     
     ]
