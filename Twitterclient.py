@@ -1,6 +1,5 @@
 import re
 
-import keyring
 import tweepy
 from textblob import TextBlob
 from tweepy import OAuthHandler
