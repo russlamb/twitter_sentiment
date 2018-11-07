@@ -54,14 +54,16 @@ def result():
     for tweet in ptweets[:10]:
         detail_positive.append({
             "text": tweet["text"],
-            "polarity":tweet["polarity"]
+            "polarity":tweet["polarity"],
+            "url":tweet["url"]
         })
     
     detail_negative = []
     for tweet in ntweets[:10]:
         detail_negative.append({
             "text": tweet["text"],
-            "polarity":tweet["polarity"]
+            "polarity":tweet["polarity"],
+            "url":tweet["url"]
         })
     return render_template('result.html', title="Analysis Result", 
         summary=summary, detail_positive=detail_positive, 

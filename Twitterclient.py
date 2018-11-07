@@ -109,6 +109,9 @@ class TwitterClient(object):
             #fetched_tweets = self.api.search(q=query, count=count)
             fetched_tweets = self.tweepy_search(query, count)
 
+            if len(fetched_tweets)>0:
+                print(fetched_tweets[0]._json)
+
             # parsing tweets one by one
             for tweet in fetched_tweets:
                 # empty dictionary to store required params of a tweet
@@ -119,6 +122,7 @@ class TwitterClient(object):
                 # saving sentiment of tweet
                 parsed_tweet['sentiment'] = self.get_tweet_sentiment(tweet.text)
                 parsed_tweet['polarity'] = self.get_tweet_polarity(tweet.text)
+                parsed_tweet['url'] = "https://twitter.com/statuses/{}".format(tweet.id_str)  # add url back to tweet
 
                 # appending parsed tweet to tweets list
                 if tweet.retweet_count > 0:
