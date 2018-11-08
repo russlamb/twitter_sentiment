@@ -12,7 +12,7 @@ def main():
     
     # calling function to get tweets
     tweets = api.get_tweets(query='Donald Trump', count=10)
-    print(tweets)
+    # print(tweets) # print all the tweets received (kind of confusing if you're not debugging)
     # picking positive tweets from tweets
     ptweets = sorted([tweet for tweet in tweets if tweet['sentiment'] == 'positive'],key= lambda kv: kv['polarity'], reverse=True)
     # percentage of positive tweets
@@ -30,12 +30,14 @@ def main():
     for tweet in ptweets[:10]:
         print(tweet['text'])
         print(tweet['polarity'])
+        print(tweet['url'])
 
     # printing first 5 negative tweets
     print("\n\nNegative tweets:")
     for tweet in ntweets[:10]:
         print(tweet['text'])
         print(tweet['polarity'])
+        print(tweet['url'])
 
 def test_tweepy():
     consumer_key = os.environ.get("consumer_key")
