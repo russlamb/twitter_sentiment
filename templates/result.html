@@ -65,7 +65,7 @@ tr:nth-child(even) {
     <tr>
         <td>{{ row["text"] }}</td>
         <td>{{ "%.2f"|format(row["polarity"]|float) }}</td>
-        <td>{{ row["url"] }}</td>
+        <td><a href='{{ row["url"] }}'>Link</a> </td>
     </tr>
     {% endfor %}
 </table>
