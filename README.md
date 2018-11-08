@@ -14,3 +14,7 @@ app.py is the Flask app.
 
 ## Configuration
 The app expects environment variables with the Twitter API authentication keys (consumer_key, consumer_secret, auth_token, auth_token_secret).
+
+# Current deployment
+This code is currently deployed here.  You can submit your own queries to view the results.
+https://twitter-sentiment-rl.herokuapp.com/
