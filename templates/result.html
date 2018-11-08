@@ -34,6 +34,7 @@ tr:nth-child(even) {
         <td>{{ row["sentiment"] }}</td>
         <td>{{ "%.2f"|format(row["count"]|float) }}</td>
         <td>{{ "%.2f"|format(row["percentage"]|float ) }}</td>
+        
     </tr>
     {% endfor %}
 </table>
@@ -49,6 +50,7 @@ tr:nth-child(even) {
     <tr>
         <td>{{ row["text"] }}</td>
         <td>{{ "%.2f"|format(row["polarity"]|float) }}</td>
+        <td><a href='{{ row["url"] }}'>Link</a> </td>
     </tr>
     {% endfor %}
 </table>
