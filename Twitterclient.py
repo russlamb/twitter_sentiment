@@ -109,8 +109,9 @@ class TwitterClient(object):
             #fetched_tweets = self.api.search(q=query, count=count)
             fetched_tweets = self.tweepy_search(query, count)
 
-            if len(fetched_tweets)>0:
-                print(fetched_tweets[0]._json)
+            # for debugging / finding tweet properties
+            #if len(fetched_tweets)>0:
+            #    print(fetched_tweets[0]._json)
 
             # parsing tweets one by one
             for tweet in fetched_tweets:
