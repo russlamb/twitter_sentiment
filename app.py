@@ -4,6 +4,12 @@ from flask import Flask, jsonify, request, render_template
 
 app = Flask(__name__)
 
+def parse_int(number):
+    try:
+        return int(number)
+    except ValueError as e:
+        print("there was an error parsing {}".format(number))
+        return None
 
 @app.route('/')
 def main():
@@ -22,6 +28,10 @@ def result():
     query =  request.args.get("query")
     count =  request.args.get("count") 
     # output_format=request.args.get("format")
+    count = parse_int(count) if parse_int(count) else 200
+    
+    if count>1000:      # set a maximum tweet count of 1000 to prevent overloading
+        count = 1000
     
     if not query:
         query = "BX"
