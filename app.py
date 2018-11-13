@@ -1,7 +1,7 @@
 import os
 from Twitterclient import TwitterClient
 from flask import Flask, jsonify, request, render_template, session, g
-from flask_paginate import Pagination, get_page_parameter
+# from flask_paginate import Pagination, get_page_parameter
 
 app = Flask(__name__)
 
