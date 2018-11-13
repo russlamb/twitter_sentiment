@@ -104,7 +104,7 @@ def positive():
     count = parse_int(count) if parse_int(count) else 200
 
     # get pagination page argument
-    page = request.args.get(get_page_parameter(), type=int, default=1)
+    # page = request.args.get(get_page_parameter(), type=int, default=1)
 
     # check if we should enable search in pagination.  q is the arg for search query (i think)
     search = False
