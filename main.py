@@ -25,14 +25,14 @@ def main():
     print("Neutral tweets percentage: {} % ".format(100 * (len(tweets) - len(ntweets) - len(ptweets)) / len(tweets) if len(tweets)>0 else 0))
 
     
-    # printing first 5 positive tweets
+    # printing first 10 positive tweets
     print("\n\nPositive tweets:")
     for tweet in ptweets[:10]:
         print(tweet['text'])
         print(tweet['polarity'])
         print(tweet['url'])
 
-    # printing first 5 negative tweets
+    # printing first 10 negative tweets
     print("\n\nNegative tweets:")
     for tweet in ntweets[:10]:
         print(tweet['text'])

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <header>
+      <div class="container">
+        
+        <strong><nav>
+          <ul class="menu">
+            <li><a href="{{ url_for('main') }}">Analysis</a></li>
+            <li><a href="{{ url_for('main_p') }}">Positive Search</a></li>
+	 
+          </ul>
+        </nav></strong>
+      </div>
+    </header>
+    <div class="container">
+      {% block content %}
+      {% endblock %}
+    </div>
+  </body>
+</html>

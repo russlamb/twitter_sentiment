@@ -1,8 +1,10 @@
 import os
 from Twitterclient import TwitterClient
-from flask import Flask, jsonify, request, render_template
+from flask import Flask, jsonify, request, render_template, session, g
+from flask_paginate import Pagination, get_page_parameter
 
 app = Flask(__name__)
+
 
 def parse_int(number):
     try:
@@ -17,6 +19,13 @@ def main():
     app.logger.info('User accessed the main.html template')
     return render_template('main.html', title="Sentiment Analysis")
 
+@app.route('/p')
+def main_p():
+    """Search twitter for positive tweets"""
+    app.logger.info('User access main_p.html template')
+    
+
+    return render_template('main_p.html')
 
 @app.route('/result')    
 def result():
@@ -75,11 +84,42 @@ def result():
             "polarity":tweet["polarity"],
             "url":tweet["url"]
         })
+
+    # add tweets to session variable
     return render_template('result.html', title="Analysis Result", 
         summary=summary, detail_positive=detail_positive, 
         detail_negative=detail_negative)
-        
-        
+    
 
+
+@app.route('/positive')
+def positive():
+
+
+    # parse the request arguments
+    query =  request.args.get("query")
+    count =  request.args.get("count") 
+    
+    # parse the count argument to make sure it's an integer (not a string)
+    count = parse_int(count) if parse_int(count) else 200
+
+    # get pagination page argument
+    page = request.args.get(get_page_parameter(), type=int, default=1)
+
+    # check if we should enable search in pagination.  q is the arg for search query (i think)
+    search = False
+    q = request.args.get('q')
+    if q:
+        search=True
+
+    # if we don't have any tweets stored for the session, get them now.
+    api = TwitterClient()
+    tweets = api.get_tweets(query=query, count=count)
+    ptweets = sorted([tweet for tweet in tweets if tweet['sentiment'] == 'positive'],key= lambda kv: kv['polarity'], reverse=True)
+
+
+    # render
+    return render_template("positive.html",ptweets=ptweets)
 
 # app.run(host=os.getenv('IP', '0.0.0.0'),port=int(os.getenv('PORT', 8080)))
+

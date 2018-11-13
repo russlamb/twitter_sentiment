@@ -1,0 +1,68 @@
+<html>
+<head>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <style>
+table {
+        font-family: arial, sans-serif;
+            border-collapse: collapse;
+                width: 100%;
+}
+td, th {
+        border: 1px solid #dddddd;
+            text-align: left;
+                padding: 8px;
+}
+tr:nth-child(even) {
+        background-color: #dddddd;
+   }
+.pagination-page-info {
+    padding: .6em;
+    padding-left: 0;
+    width: 40em;
+    margin: .5em;
+    margin-left: 0;
+    font-size: 12px;
+}
+.pagination-page-info b {
+    color: black;
+    background: #6aa6ed;
+    padding-left: 2px;
+    padding: .1em .25em;
+    font-size: 150%;
+}
+
+</style>
+<title>Positive Tweets</title>
+</head>
+<body>
+<h1>Positive Tweets</h1>
+<table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Text</th>
+	<th>Polarity</th>
+      <th>Link</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for tweet in ptweets %}
+      <tr>
+        <td>{{ loop.index }}</td>
+        <td>{{ tweet.text }}</td>
+	<td>{{ "%.2f"|format(tweet.polarity|float) }}</td>
+        <td><a href="{{ tweet.url }}">Link</a></td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</body>
+</html>

@@ -1,12 +1,12 @@
 <html>
 <head>
-    <title>{{ title }}</title>
+    <title>Twitter Positive Tweet Search</title>
 </head>
 <body>
-<h1>Twitter Sentiment Analysis</h1>
-<a href="{{ url_for('main_p') }}">Search Positive Tweets</a>
+<h1>Twitter Positive Tweet Analysis</h1>
+<a href="{{ url_for('main') }}">Sentiment Analysis</a>
 <h2>Parameters</h2>
-<form method="GET" action="{{ url_for('result')}}">
+<form method="GET" action="{{ url_for('positive')}}">
     <table>
         <tr>
             <td><label>Search Query:   </label></td>
