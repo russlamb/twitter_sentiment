@@ -4,7 +4,7 @@ import tweepy
 from textblob import TextBlob
 from tweepy import OAuthHandler
 import os
-
+import errno
 
 class TwitterClient(object):
     '''
@@ -28,6 +28,13 @@ class TwitterClient(object):
         consumer_secret = os.environ.get("consumer_secret")
         access_token = os.environ.get("access_token")
         access_token_secret = os.environ.get("access_token_secret")
+        
+        # If enrivonment variables missing, raise an error
+        if (not consumer_key or 
+                not consumer_secret or
+                not access_token or
+                not access_token_secret):
+            raise OSError(errno.ENODATA, "Environment variables not set for Twitter API")
 
         # attempt authentication
         try:
