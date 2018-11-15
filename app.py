@@ -48,7 +48,15 @@ def result():
     api = TwitterClient()
 
     # calling function to get tweets
-    tweets = api.get_tweets(query=query, count=count)
+    tweets_with_dupes = api.get_tweets(query=query, count=count)
+    unique_tweets = set([tweet['text'] for tweet in tweets_with_dupes])
+    tweets = []
+    for tweet in tweets_with_dupes:
+        if tweet['text'] in unique_tweets:
+            tweets.append(tweet)
+            unique_tweets.remove(tweet['text'])
+
+
     ptweets = sorted([tweet for tweet in tweets if tweet['sentiment'] == 'positive'],key= lambda kv: kv['polarity'], reverse=True)
     ntweets = sorted([tweet for tweet in tweets if tweet['sentiment'] == 'negative'],key= lambda kv: kv['polarity'])
     summary = [
@@ -69,6 +77,7 @@ def result():
         }
     
     ]
+    
     detail_positive = []
     for tweet in ptweets[:10]:
         detail_positive.append({
@@ -85,10 +94,15 @@ def result():
             "url":tweet["url"]
         })
 
-    # add tweets to session variable
+    # add retweeted and favorited tweets to the list
+    f_tweets = sorted(tweets, key=lambda kv: kv['favorites'], reverse=True)
+    r_tweets = sorted(tweets, key=lambda kv: kv['retweets'], reverse=True)
+
+    
     return render_template('result.html', title="Analysis Result", 
         summary=summary, detail_positive=detail_positive, 
-        detail_negative=detail_negative)
+        detail_negative=detail_negative, detail_retweeted=r_tweets[:10],
+        detail_favorited=f_tweets[:10])
     
 
 

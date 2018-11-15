@@ -71,5 +71,37 @@ tr:nth-child(even) {
     </tr>
     {% endfor %}
 </table>
+<h2>Most Retweeted Tweets</h2>
+<table>
+    <tr>
+        <th>Tweet</th>
+        <th>Retweets</th>
+        <th>Url</th>
+    </tr>
+
+    {% for row in detail_retweeted %}
+    <tr>
+        <td>{{ row["text"] }}</td>
+        <td>{{ "%.2f"|format(row["retweets"]|float) }}</td>
+        <td><a href='{{ row["url"] }}'>Link</a> </td>
+    </tr>
+    {% endfor %}
+</table>
+<h2>Most Favorited Tweets</h2>
+<table>
+    <tr>
+        <th>Tweet</th>
+        <th>Favorites</th>
+        <th>Url</th>
+    </tr>
+
+    {% for row in detail_favorited %}
+    <tr>
+        <td>{{ row["text"] }}</td>
+        <td>{{ "%.2f"|format(row["favorites"]|float) }}</td>
+        <td><a href='{{ row["url"] }}'>Link</a> </td>
+    </tr>
+    {% endfor %}
+</table>
 </body>
 </html>
