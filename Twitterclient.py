@@ -103,7 +103,7 @@ class TwitterClient(object):
                 print("error fetching tweets: {}".format(e))
                 break
         return searched_tweets
-        
+
     def get_tweets(self, query, count=10):
         '''
         Main function to fetch tweets and parse them.
@@ -131,6 +131,8 @@ class TwitterClient(object):
                 parsed_tweet['sentiment'] = self.get_tweet_sentiment(tweet.text)
                 parsed_tweet['polarity'] = self.get_tweet_polarity(tweet.text)
                 parsed_tweet['url'] = "https://twitter.com/statuses/{}".format(tweet.id_str)  # add url back to tweet
+                parsed_tweet['retweets'] = tweet.retweet_count
+                parsed_tweet['favorites'] = tweet.favorite_count
 
                 # appending parsed tweet to tweets list
                 if tweet.retweet_count > 0:
