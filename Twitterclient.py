@@ -133,7 +133,7 @@ class TwitterClient(object):
                 parsed_tweet['url'] = "https://twitter.com/statuses/{}".format(tweet.id_str)  # add url back to tweet
                 parsed_tweet['retweets'] = tweet.retweet_count
                 parsed_tweet['favorites'] = tweet.favorite_count
-                parsed_tweet['language'] = tweet.metadata.get('iso_language_code',None)
+                parsed_tweet['language'] = tweet.lang
 
                 # appending parsed tweet to tweets list
                 if tweet.retweet_count > 0:
