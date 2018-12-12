@@ -137,6 +137,7 @@ class TwitterClient(object):
                 parsed_tweet['retweets'] = tweet.retweet_count
                 parsed_tweet['favorites'] = tweet.favorite_count
                 parsed_tweet['language'] = tweet.lang
+                parsed_tweet['created_at'] = tweet.created_at
 
                 # appending parsed tweet to tweets list
                 if tweet.retweet_count > 0:
