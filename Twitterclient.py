@@ -11,7 +11,7 @@ class TwitterClient(object):
     Generic Twitter Class for sentiment analysis.
     '''
 
-    def __init__(self):
+    def __init__(self, language="en"):
         '''
         Class constructor or initialization method.
         '''
@@ -46,6 +46,9 @@ class TwitterClient(object):
             self.api = tweepy.API(self.auth)
         except:
             print("Error: Authentication Failed")
+
+        # set language for twitter search
+        self.language=language
 
     def clean_tweet(self, tweet):
         '''
@@ -90,7 +93,7 @@ class TwitterClient(object):
         while len(searched_tweets) < max_tweets:
             count = max_tweets - len(searched_tweets)
             try:
-                new_tweets = self.api.search(q=query, count=count, max_id=str(last_id - 1))
+                new_tweets = self.api.search(q=query, count=count, max_id=str(last_id - 1),lang=self.language)
                 if not new_tweets:
                     print("no new tweets")
                     break

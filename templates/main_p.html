@@ -1,9 +1,9 @@
 <html>
 <head>
-    <title>Twitter Positive Tweet Search</title>
+    <title>Twitter Tweet Search</title>
 </head>
 <body>
-<h1>Twitter Positive Tweet Analysis</h1>
+<h1>Twitter Tweet Analysis</h1>
 <a href="{{ url_for('main') }}">Sentiment Analysis</a>
 <h2>Parameters</h2>
 <form method="GET" action="{{ url_for('positive')}}">
@@ -16,7 +16,17 @@
             <td><label>Number of tweets to search </label></td>
             <td><input name="count" type="number" value="200" min="0" max="1000"><br></td>
         </tr>
-    
+        <tr>
+            <td><label>Sort by: </label></td>
+            <td><select name="sort" >
+
+                    <option value="positive">Positive</option>
+                    <option value="negative">Negative</option>
+                    <option value="retweets">Retweets</option>
+                    <option value="favorites">Favorites</option>
+                </select>
+                    <br></td>
+        </tr> 
     </table>
     <input type="submit"><br>
     

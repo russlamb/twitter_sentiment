@@ -12,16 +12,23 @@ def parse_int(number):
     except ValueError as e:
         print("there was an error parsing {}".format(number))
         return None
+def parse_unique_tweets(tweets_with_dupes):
+    unique_tweets = set([tweet['text'] for tweet in tweets_with_dupes])
+    tweets = []
+    for tweet in tweets_with_dupes:
+        if tweet['text'] in unique_tweets:
+            tweets.append(tweet)
+    return tweets
 
-@app.route('/')
+@app.route('/old')
 def main():
     """twitter sentiment analysisinput  page"""
     app.logger.info('User accessed the main.html template')
     return render_template('main.html', title="Sentiment Analysis")
 
-@app.route('/p')
+@app.route('/')
 def main_p():
-    """Search twitter for positive tweets"""
+    """Search twitter for tweets"""
     app.logger.info('User access main_p.html template')
     
 
@@ -38,9 +45,9 @@ def result():
     count =  request.args.get("count") 
     # output_format=request.args.get("format")
     count = parse_int(count) if parse_int(count) else 200
-    
-    if count>1000:      # set a maximum tweet count of 1000 to prevent overloading
-        count = 1000
+    max_count = 2000
+    if count>max_count:      # set a maximum tweet count to prevent overloading
+        count = max_count
     
     if not query:
         query = "BX"
@@ -112,7 +119,8 @@ def positive():
 
     # parse the request arguments
     query =  request.args.get("query")
-    count =  request.args.get("count") 
+    count =  request.args.get("count")
+    sort_by = request.args.get("sort")
     
     # parse the count argument to make sure it's an integer (not a string)
     count = parse_int(count) if parse_int(count) else 200
@@ -129,11 +137,22 @@ def positive():
     # if we don't have any tweets stored for the session, get them now.
     api = TwitterClient()
     tweets = api.get_tweets(query=query, count=count)
-    ptweets = sorted([tweet for tweet in tweets if tweet['sentiment'] == 'positive'],key= lambda kv: kv['polarity'], reverse=True)
+    tweets = parse_unique_tweets(tweets)
+
+    if sort_by is None or sort_by=="positive":
+        ptweets = sorted([tweet for tweet in tweets if tweet['sentiment'] == 'positive'],key= lambda kv: kv['polarity'], reverse=True)
+    elif sort_by == "negative":
+        ptweets = sorted([tweet for tweet in tweets if tweet['sentiment'] == 'negative'],key= lambda kv: kv['polarity'], reverse=False)
+    elif sort_by == "retweet" or sort_by == "retweets":
+        ptweets = sorted(tweets, key=lambda kv: kv['retweets'], reverse=True)
+    elif sort_by == "favorites":
+        ptweets = sorted(tweets, key=lambda kv: kv['favorites'], reverse=True)
+    else:
+        ptweets = sorted([tweet for tweet in tweets if tweet['sentiment'] == 'positive'],key= lambda kv: kv['polarity'], reverse=True)
 
 
     # render
-    return render_template("positive.html",ptweets=ptweets)
+    return render_template("positive.html",ptweets=ptweets,sorted_by=sort_by)
 
 # app.run(host=os.getenv('IP', '0.0.0.0'),port=int(os.getenv('PORT', 8080)))
 

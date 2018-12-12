@@ -40,16 +40,20 @@ tr:nth-child(even) {
 }
 
 </style>
-<title>Positive Tweets</title>
+<title>All Tweets</title>
 </head>
 <body>
-<h1>Positive Tweets</h1>
+<h1>All Tweets</h1>
+<h2>Sorted by {{ sorted_by }}</h2>
 <table>
   <thead>
     <tr>
       <th>#</th>
       <th>Text</th>
 	<th>Polarity</th>
+	<th>Retweets</th>
+	<th>Favorites</th>
+	<th>Language</th>
       <th>Link</th>
     </tr>
   </thead>
@@ -59,6 +63,9 @@ tr:nth-child(even) {
         <td>{{ loop.index }}</td>
         <td>{{ tweet.text }}</td>
 	<td>{{ "%.2f"|format(tweet.polarity|float) }}</td>
+	<td>{{ "%.2f"|format(tweet.retweets|float) }}</td>
+	<td>{{ "%.2f"|format(tweet.favorites|float) }}</td>
+        <td>{{ tweet.language }}</td>
         <td><a href="{{ tweet.url }}">Link</a></td>
       </tr>
     {% endfor %}
