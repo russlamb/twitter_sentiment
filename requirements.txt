@@ -8,7 +8,7 @@ idna==2.7
 itsdangerous==1.1.0
 Jinja2==2.10
 MarkupSafe==1.1.0
-nltk==3.3
+nltk==3.6.3
 oauthlib==2.1.0
 PySocks==1.6.8
 requests==2.20.0
